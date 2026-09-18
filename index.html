@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YugonHub Back Office — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { align-items: center; justify-content: center; }
+  .landing { max-width: 480px; width: 92vw; text-align: center; padding: 40px 0; }
+  .landing .brand-badge { width: 44px; height: 44px; border-radius: 12px; font-size: 15px; margin: 0 auto 16px; }
+  .landing h1 { font-size: 20px; margin: 0 0 6px; }
+  .landing p { color: var(--text-muted); font-size: 13.5px; margin: 0 0 28px; }
+  .landing-links { display: flex; flex-direction: column; gap: 12px; }
+  .landing-link {
+    display: flex; align-items: center; gap: 12px; text-align: left; padding: 16px 18px;
+    border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .landing-link:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+  .landing-link .ico { width: 36px; height: 36px; border-radius: 9px; background: var(--primary-tint); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .landing-link .txt .t { font-weight: 700; font-size: 14px; }
+  .landing-link .txt .d { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="landing">
+    <div class="brand-badge">YH</div>
+    <h1>YugonHub Back Office</h1>
+    <p>Admin mockup &mdash; pick a module to preview</p>
+    <div class="landing-links">
+      <a class="landing-link" href="staff_management.html">
+        <div class="ico"><i class="fi fi-rr-users"></i></div>
+        <div class="txt"><div class="t">Staff Management</div><div class="d">Staff Listing, Role Listing, Audit Log</div></div>
+      </a>
+      <a class="landing-link" href="user_management.html">
+        <div class="ico"><i class="fi fi-rr-user"></i></div>
+        <div class="txt"><div class="t">User Management</div><div class="d">Job Seekers, Employers</div></div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
