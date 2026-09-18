@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YugonHub Staff Admin — User Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/user-management.css">
+</head>
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar">
+  <div class="sidebar-head">
+    <div class="brand-badge">YH</div>
+    <div class="brand-name">YugonHub Admin</div>
+  </div>
+  <div class="nav">
+    <div class="nav-item disabled"><i class="fi fi-rr-home"></i> Overview</div>
+
+    <div class="nav-group">
+      <div class="nav-item" id="user-nav-toggle">
+        <i class="fi fi-rr-user"></i>
+        User Management
+        <i class="fi fi-rr-angle-down chev open" id="user-nav-chev"></i>
+      </div>
+      <div class="nav-sub open" id="user-nav-sub">
+        <div class="nav-sub-item active" data-view="jobseeker">Job Seekers</div>
+        <div class="nav-sub-item" data-view="employer">Employers</div>
+      </div>
+    </div>
+
+    <div class="nav-item disabled"><i class="fi fi-rr-building"></i> Company Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-briefcase"></i> Job Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-shield-check"></i> KYC</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-credit-card"></i> Payment Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-document"></i> Posting Management</div>
+    <div class="nav-item disabled">
+      <i class="fi fi-rr-megaphone"></i>
+      Campaign Management <span class="nav-note">TBC</span>
+    </div>
+    <a class="nav-item" href="staff_management.html">
+      <i class="fi fi-rr-users"></i>
+      Staff Management
+    </a>
+  </div>
+  <div class="sidebar-foot">
+    <div class="avatar">KY</div>
+    <div class="who">Kheng Y<div class="role">Access Admin</div></div>
+  </div>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+  <div class="page">
+
+    <div class="header-row">
+      <div class="header-left">
+        <h1 id="page-title">Job Seekers</h1>
+        <div class="crumbs">Home <span class="sep">/</span> Staff Admin <span class="sep">/</span> User Management <span class="sep">/</span> <span class="current" id="crumb-current">Job Seekers</span></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost"><i class="fi fi-rr-download"></i> Export</button>
+      </div>
+    </div>
+
+    <!-- ===================== JOB SEEKER LISTING ===================== -->
+    <div class="view active" id="view-jobseeker">
+      <div class="toolbar">
+        <div class="toolbar-title" id="js-showing">Showing 5 of 5 job seekers</div>
+        <div class="toolbar-controls">
+          <div class="search-input">
+            <i class="fi fi-rr-search"></i>
+            <input id="js-search" placeholder="Search job seekers">
+          </div>
+          <select class="select-ctl" id="js-status-filter">
+            <option value="">Select a status</option>
+            <option value="Active">Active</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+          <select class="select-ctl" id="js-sort">
+            <option value="name">Name (A&ndash;Z)</option>
+            <option value="recent">Most recently joined</option>
+          </select>
+          <button class="filter-btn"><i class="fi fi-rr-filter"></i> Filters</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="js-check-all"></th>
+              <th><div class="th-inner">User ID</div></th>
+              <th><div class="th-inner">Candidate <i class="fi fi-rr-sort sort-ic"></i></div></th>
+              <th><div class="th-inner">Headline</div></th>
+              <th><div class="th-inner">Job Type</div></th>
+              <th><div class="th-inner">Status</div></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="js-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="per-page">Show <select><option>10</option></select> per page</div>
+        <div id="js-page-info">1&ndash;5 of 5</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>&#8592;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn" disabled>&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== EMPLOYER LISTING ===================== -->
+    <div class="view" id="view-employer">
+      <div class="toolbar">
+        <div class="toolbar-title" id="emp-showing">Showing 4 of 4 employers</div>
+        <div class="toolbar-controls">
+          <div class="search-input">
+            <i class="fi fi-rr-search"></i>
+            <input id="emp-search" placeholder="Search employers">
+          </div>
+          <select class="select-ctl" id="emp-status-filter">
+            <option value="">Select a status</option>
+            <option value="Active">Active</option>
+            <option value="Pending Verification">Pending Verification</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+          <button class="filter-btn"><i class="fi fi-rr-filter"></i> Filters</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="emp-check-all"></th>
+              <th><div class="th-inner">Employer ID</div></th>
+              <th><div class="th-inner">Company <i class="fi fi-rr-sort sort-ic"></i></div></th>
+              <th><div class="th-inner">Industry</div></th>
+              <th><div class="th-inner">Company Size</div></th>
+              <th><div class="th-inner">Status</div></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="emp-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="per-page">Show <select><option>10</option></select> per page</div>
+        <div id="emp-page-info">1&ndash;4 of 4</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>&#8592;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn" disabled>&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== OVERLAY ===================== -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ===================== JOB SEEKER DRAWER ===================== -->
+<div class="drawer" id="jobseeker-drawer">
+  <div class="drawer-head">
+    <div><h2 id="jobseeker-drawer-title">Job Seeker Details</h2><div class="drawer-sub" id="jobseeker-drawer-sub"></div></div>
+    <button class="drawer-close" data-close><i class="fi fi-rr-cross-small"></i></button>
+  </div>
+  <div class="drawer-tabs" id="jobseeker-drawer-tabs">
+    <button class="drawer-tab active" data-dtab="jobseeker-profile">Profile</button>
+    <button class="drawer-tab" data-dtab="jobseeker-cv">Resume / CV</button>
+    <button class="drawer-tab" data-dtab="jobseeker-experience">Experience</button>
+    <button class="drawer-tab" data-dtab="jobseeker-projects">Projects</button>
+    <button class="drawer-tab" data-dtab="jobseeker-education">Education</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabbody active" id="jobseeker-profile">
+      <div class="section-block">
+        <p class="section-title">Personal Information</p>
+        <div class="detail-grid">
+          <div class="field"><label>User ID</label><div class="value" data-view-field="userId"></div></div>
+          <div class="field"><label>Status</label>
+            <div class="value" data-view-field="statusLabel"></div>
+            <select data-edit-field="status" style="display:none"><option value="Active">Active</option><option value="Suspended">Suspended</option></select>
+          </div>
+          <div class="field"><label>Full Name</label><div class="value" data-view-field="name"></div></div>
+          <div class="field"><label>Preferred Job Type</label><div class="value" data-view-field="preferredJobType"></div></div>
+          <div class="field"><label>Email</label><div class="value" data-view-field="email"></div></div>
+          <div class="field"><label>Phone</label><div class="value" data-view-field="phone"></div></div>
+          <div class="field full"><label>Location</label><div class="value" data-view-field="location"></div></div>
+          <div class="field"><label>Joined Date</label><div class="value" data-view-field="joined"></div></div>
+          <div class="field"><label>Last Active</label><div class="value" data-view-field="lastActive"></div></div>
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="section-title">Headline</p>
+        <div class="value" data-view-field="headline"></div>
+      </div>
+      <div class="section-block">
+        <p class="section-title">Professional Summary</p>
+        <div class="value" data-view-field="bio"></div>
+      </div>
+      <div class="section-block">
+        <p class="section-title">Skills</p>
+        <div class="chip-row" data-view-field="skills"></div>
+      </div>
+    </div>
+    <div class="drawer-tabbody" id="jobseeker-cv"></div>
+    <div class="drawer-tabbody" id="jobseeker-experience"></div>
+    <div class="drawer-tabbody" id="jobseeker-projects"></div>
+    <div class="drawer-tabbody" id="jobseeker-education"></div>
+  </div>
+  <div class="drawer-foot" id="jobseeker-drawer-foot"></div>
+</div>
+
+<!-- ===================== EMPLOYER DRAWER ===================== -->
+<div class="drawer" id="employer-drawer">
+  <div class="drawer-head">
+    <div><h2 id="employer-drawer-title">Employer Details</h2><div class="drawer-sub" id="employer-drawer-sub"></div></div>
+    <button class="drawer-close" data-close><i class="fi fi-rr-cross-small"></i></button>
+  </div>
+  <div class="drawer-tabs" id="employer-drawer-tabs">
+    <button class="drawer-tab active" data-dtab="employer-profile">Company Profile</button>
+    <button class="drawer-tab" data-dtab="employer-contact">Contact Person</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabbody active" id="employer-profile">
+      <div class="section-block">
+        <p class="section-title">Company Information</p>
+        <div class="detail-grid">
+          <div class="field"><label>Employer ID</label><div class="value" data-view-field="employerId"></div></div>
+          <div class="field"><label>Status</label>
+            <div class="value" data-view-field="statusLabel"></div>
+            <select data-edit-field="status" style="display:none">
+              <option value="Active">Active</option>
+              <option value="Pending Verification">Pending Verification</option>
+              <option value="Suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="field"><label>Company Name</label><div class="value" data-view-field="companyName"></div></div>
+          <div class="field"><label>KYC Verification</label><div class="value" data-view-field="verification"></div></div>
+          <div class="field"><label>Email</label><div class="value" data-view-field="email"></div></div>
+          <div class="field"><label>Website</label><div class="value" data-view-field="website"></div></div>
+          <div class="field"><label>Industry</label><div class="value" data-view-field="industry"></div></div>
+          <div class="field"><label>Company Size</label><div class="value" data-view-field="companySize"></div></div>
+          <div class="field full"><label>Headquarters</label><div class="value" data-view-field="hq"></div></div>
+          <div class="field"><label>Joined Date</label><div class="value" data-view-field="joined"></div></div>
+          <div class="field"><label>Last Active</label><div class="value" data-view-field="lastActive"></div></div>
+        </div>
+      </div>
+      <div class="section-block">
+        <p class="section-title">About the Company</p>
+        <div class="value" data-view-field="about"></div>
+      </div>
+    </div>
+    <div class="drawer-tabbody" id="employer-contact">
+      <div class="section-block">
+        <p class="section-title">Primary Contact Person</p>
+        <div class="detail-grid">
+          <div class="field"><label>Name</label><div class="value" data-view-field="contactName"></div></div>
+          <div class="field"><label>Designation</label><div class="value" data-view-field="contactDesignation"></div></div>
+          <div class="field"><label>Email</label><div class="value" data-view-field="contactEmail"></div></div>
+          <div class="field"><label>Phone</label><div class="value" data-view-field="contactPhone"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot" id="employer-drawer-foot"></div>
+</div>
+
+<script src="js/user-management.js"></script>
+</body>
+</html>

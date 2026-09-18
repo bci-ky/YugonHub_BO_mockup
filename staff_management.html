@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YugonHub Staff Admin — Staff Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar">
+  <div class="sidebar-head">
+    <div class="brand-badge">YH</div>
+    <div class="brand-name">YugonHub Admin</div>
+  </div>
+  <!-- <div class="sidebar-search">
+    <i class="fi fi-rr-search"></i>
+    Search <span class="kbd">&#8984; /</span>
+  </div> -->
+  <div class="nav">
+    <div class="nav-item disabled"><i class="fi fi-rr-home"></i> Overview</div>
+    <a class="nav-item" href="user_management.html"><i class="fi fi-rr-user"></i> User Management</a>
+    <div class="nav-item disabled"><i class="fi fi-rr-building"></i> Company Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-briefcase"></i> Job Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-shield-check"></i> KYC</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-credit-card"></i> Payment Management</div>
+    <div class="nav-item disabled"><i class="fi fi-rr-document"></i> Posting Management</div>
+    <div class="nav-item disabled">
+      <i class="fi fi-rr-megaphone"></i>
+      Campaign Management <span class="nav-note">TBC</span>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-item" id="staff-nav-toggle">
+        <i class="fi fi-rr-users"></i>
+        Staff Management
+        <i class="fi fi-rr-angle-down chev open" id="staff-nav-chev"></i>
+      </div>
+      <div class="nav-sub open" id="staff-nav-sub">
+        <div class="nav-sub-item active" data-view="staff">Staff Listing</div>
+        <div class="nav-sub-item" data-view="role">Role Listing</div>
+        <div class="nav-sub-item" data-view="audit">Audit Log</div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-foot">
+    <div class="avatar">KY</div>
+    <div class="who">Kheng Y<div class="role">Access Admin</div></div>
+  </div>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+  <div class="page">
+
+    <div class="header-row">
+      <div class="header-left">
+        <h1 id="page-title">Staff Listing</h1>
+        <div class="crumbs">Home <span class="sep">/</span> Staff Admin <span class="sep">/</span> Staff Management <span class="sep">/</span> <span class="current" id="crumb-current">Staff Listing</span></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost"><i class="fi fi-rr-download"></i> Export</button>
+        <button class="btn btn-primary" id="btn-add-staff">+ Add Staff</button>
+        <button class="btn btn-primary" id="btn-add-role" style="display:none;">+ Add Role</button>
+      </div>
+    </div>
+
+    <!-- ===================== STAFF LISTING ===================== -->
+    <div class="view active" id="view-staff">
+      <div class="toolbar">
+        <div class="toolbar-title" id="staff-showing">Showing 5 of 5 staff</div>
+        <div class="toolbar-controls">
+          <div class="search-input">
+            <i class="fi fi-rr-search"></i>
+            <input id="staff-search" placeholder="Search staff">
+          </div>
+          <select class="select-ctl" id="staff-status-filter">
+            <option value="">Select a status</option>
+            <option value="Active">Active</option>
+            <option value="Deactivated">Deactivated</option>
+          </select>
+          <select class="select-ctl" id="staff-role-filter">
+            <option value="">Select a role</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Manager">Manager</option>
+            <option value="Executive">Executive</option>
+          </select>
+          <select class="select-ctl" id="staff-sort">
+            <option value="name">Select a sort</option>
+            <option value="name">Name (A&ndash;Z)</option>
+            <option value="recent">Most recently created</option>
+          </select>
+          <button class="filter-btn"><i class="fi fi-rr-filter"></i> Filters</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="staff-check-all"></th>
+              <th><div class="th-inner">Staff ID</div></th>
+              <th><div class="th-inner">Member <i class="fi fi-rr-sort sort-ic"></i></div></th>
+              <th><div class="th-inner">Role</div></th>
+              <th><div class="th-inner">Status</div></th>
+              <th><div class="th-inner">Last Active</div></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="staff-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="per-page">Show <select><option>10</option></select> per page</div>
+        <div id="staff-page-info">1&ndash;5 of 5</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>&#8592;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn" disabled>&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== ROLE LISTING ===================== -->
+    <div class="view" id="view-role">
+      <div class="toolbar">
+        <div class="toolbar-title" id="role-showing">Showing 8 of 8 roles</div>
+        <div class="toolbar-controls">
+          <div class="search-input">
+            <i class="fi fi-rr-search"></i>
+            <input id="role-search" placeholder="Search roles">
+          </div>
+          <select class="select-ctl" id="role-sort">
+            <option value="">Select a sort</option>
+            <option value="name">Name (A&ndash;Z)</option>
+            <option value="count">Most staff assigned</option>
+          </select>
+          <button class="filter-btn"><i class="fi fi-rr-filter"></i> Filters</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="role-check-all"></th>
+              <th><div class="th-inner">Role <i class="fi fi-rr-sort sort-ic"></i></div></th>
+              <th><div class="th-inner">Role Status</div></th>
+              <th><div class="th-inner">Functions Assigned</div></th>
+              <th><div class="th-inner">Staff Assigned</div></th>
+              <th><div class="th-inner">Last Updated</div></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="role-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="per-page">Show <select><option>10</option></select> per page</div>
+        <div id="role-page-info">1&ndash;8 of 8</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>&#8592;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn" disabled>&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== AUDIT LOG (combined) ===================== -->
+    <div class="view" id="view-audit">
+      <div class="toolbar">
+        <div class="toolbar-title" id="audit-showing">Showing 0 of 0 events</div>
+        <div class="toolbar-controls">
+          <div class="search-input">
+            <i class="fi fi-rr-search"></i>
+            <input id="audit-search" placeholder="Search audit log">
+          </div>
+          <select class="select-ctl" id="audit-category-filter">
+            <option value="">All categories</option>
+            <option value="Staff">Staff</option>
+            <option value="Role">Role</option>
+          </select>
+          <select class="select-ctl" id="audit-sort">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+          <button class="filter-btn"><i class="fi fi-rr-filter"></i> Filters</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th><div class="th-inner">Date/Time</div></th>
+              <th><div class="th-inner">Category</div></th>
+              <th><div class="th-inner">Staff ID</div></th>
+              <th><div class="th-inner">Role</div></th>
+              <th><div class="th-inner">Action</div></th>
+              <th><div class="th-inner">Previous Value</div></th>
+              <th><div class="th-inner">New Value</div></th>
+            </tr>
+          </thead>
+          <tbody id="audit-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="per-page">Show <select><option>10</option></select> per page</div>
+        <div id="audit-page-info">0 of 0</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>&#8592;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn" disabled>&#8594;</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== OVERLAY ===================== -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ===================== STAFF DRAWER ===================== -->
+<div class="drawer" id="staff-drawer">
+  <div class="drawer-head">
+    <div><h2 id="staff-drawer-title">Add Staff</h2><div class="drawer-sub" id="staff-drawer-sub">New staff account</div></div>
+    <button class="drawer-close" data-close><i class="fi fi-rr-cross-small"></i></button>
+  </div>
+  <div class="drawer-tabs" id="staff-drawer-tabs">
+    <button class="drawer-tab active" data-dtab="staff-details">Details</button>
+    <button class="drawer-tab" data-dtab="staff-audit">Audit Log</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabbody active" id="staff-details">
+      <div class="field" id="staff-id-field">
+        <label>Staff ID</label>
+        <div class="value" data-view-field="staffId"></div>
+        <div class="field-hint">Automatically generated by the system upon account creation.</div>
+      </div>
+      <div class="field"><label>Full Name</label><div class="value" data-view-field="name"></div><input data-edit-field="name" style="display:none"></div>
+      <div class="field"><label>Email</label><div class="value" data-view-field="email"></div><input data-edit-field="email" style="display:none"></div>
+      <div class="field">
+        <label>Role</label><div class="value" data-view-field="role"></div>
+        <select data-edit-field="role" style="display:none">
+          <option>Administrator</option><option>Manager</option><option>Executive</option>
+        </select>
+        <div class="field-hint">Role determines back-office function access. Current role names are still pending Product confirmation.</div>
+      </div>
+      <div class="field" id="staff-status-field">
+        <label>Status</label><div class="value" data-view-field="statusLabel"></div>
+        <select data-edit-field="status" style="display:none"><option value="Active">Active</option><option value="Deactivated">Deactivated</option></select>
+      </div>
+      <div class="field" id="staff-created-field">
+        <label>Created Date</label>
+        <div class="value" data-view-field="createdDate"></div>
+      </div>
+      <div class="field" id="staff-updated-field">
+        <label>Last Updated</label>
+        <div class="value" data-view-field="lastUpdated"></div>
+      </div>
+    </div>
+    <div class="drawer-tabbody" id="staff-audit">
+      <table class="audit-table">
+        <thead><tr><th>Date/Time</th><th>Staff ID</th><th>Role</th><th>Action</th><th>Previous Value</th><th>New Value</th></tr></thead>
+        <tbody id="staff-audit-rows"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="drawer-foot" id="staff-drawer-foot"></div>
+</div>
+
+<!-- ===================== ROLE DRAWER ===================== -->
+<div class="drawer" id="role-drawer">
+  <div class="drawer-head">
+    <div><h2 id="role-drawer-title">Add Role</h2><div class="drawer-sub" id="role-drawer-sub">New role template</div></div>
+    <button class="drawer-close" data-close><i class="fi fi-rr-cross-small"></i></button>
+  </div>
+  <div class="drawer-tabs" id="role-drawer-tabs">
+    <button class="drawer-tab active" data-dtab="role-details">Details</button>
+    <button class="drawer-tab" data-dtab="role-function">Function Assignment</button>
+    <button class="drawer-tab" data-dtab="role-audit">Audit Log</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabbody active" id="role-details">
+      <div class="field"><label>Role Name</label><div class="value" data-view-field="roleName"></div><input data-edit-field="roleName" style="display:none"></div>
+      <div class="field" id="role-status-field">
+        <label>Role Status</label><div class="value" data-view-field="roleStatusLabel"></div>
+        <select data-edit-field="roleStatus" style="display:none"><option value="Active">Active</option><option value="Deactivated">Deactivated</option></select>
+      </div>
+      <div class="field" id="role-created-field">
+        <label>Created Date</label><div class="value" data-view-field="roleCreated"></div>
+      </div>
+      <div class="field" id="role-updated-field">
+        <label>Last Updated</label><div class="value" data-view-field="roleUpdated"></div>
+      </div>
+      <div class="empty-note">A Role is a predefined set of access permissions determining which back-office functions a staff member can access. Current role names (Administrator, Manager, Executive) are still pending Product confirmation.</div>
+    </div>
+    <div class="drawer-tabbody" id="role-function">
+      <p class="muted-cell" style="margin-top:0;">Based on the current Staff Management scope. Final function list is still pending Product confirmation.</p>
+      <div class="fn-group">
+        <p class="fn-group-title">Staff Management</p>
+        <div id="fn-group-staff"></div>
+      </div>
+      <div class="fn-group">
+        <p class="fn-group-title">Role Management</p>
+        <div id="fn-group-role"></div>
+      </div>
+    </div>
+    <div class="drawer-tabbody" id="role-audit">
+      <table class="audit-table">
+        <thead><tr><th>Date/Time</th><th>Staff ID</th><th>Role</th><th>Action</th><th>Previous Value</th><th>New Value</th></tr></thead>
+        <tbody id="role-audit-rows"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="drawer-foot" id="role-drawer-foot"></div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
